@@ -4,6 +4,7 @@ from pyspark import SparkConf, SparkContext
 ## Module Constants
 APP_NAME = "Prime"
 
+## isprime finds prime numbers
 def isprime(n):
 
     """
@@ -12,15 +13,19 @@ def isprime(n):
 
     # make sure n is a positive integer
     n = abs(int(n))
+
     # 0 and 1 are not primes
     if n < 2:
         return False
+
     # 2 is the only even prime number
     if n == 2:
         return True
+
     # all other even numbers are not primes
     if not n & 1:
         return False
+
     # range starts with 3 and only needs to go up the square root of n
     # for all odd numbers
     for x in range(3, int(n**0.5)+1, 2):
@@ -28,22 +33,38 @@ def isprime(n):
             return False
     return True
 
-#Main function
+## tokenize splits the numbers in the input file into seperate numbers (as strings)
+def tokenize(numbers_raw):
+    return numbers_raw.split()
+
+## Main function
 def main(sc):
 
-#Import data file
-    with open("/root/Distributed-Data-Mining-17/task1/spark/data/input_numbers.txt") as f:
-        for line in f:
-            numbers_raw = map(float, line.split())
+    # Import the input file, convert it to RDD, and distribute them to worker nodes
+    numbers_raw = sc.textFile("/root/Distributed-Data-Mining-17/task1/spark/data/input_numbers.txt")
 
-    nums = sc.parallelize(numbers_raw)
+    print "input file imported and RDD created"
 
-    print nums.filter(isprime).count()
+    # tokenize the input file into seperate numbers
+    nums = numbers_raw.flatMap(tokenize)
+
+    print "input file tokenized"
+
+    # count number of prime numbers
+    prime_num = nums.filter(isprime).count()
+
+    # print the result
+    print "Number of prime numbers = %i" %prime_num
+
+    # save the output file - this isn't working
+    #prime_num.saveAsTextFile("task1_output")
 
 if  __name__ == "__main__":
+
     ## Configure Spark
     conf = SparkConf().setAppName(APP_NAME)
-    conf = conf.setMaster("local[*]")
+
+    #conf = conf.setMaster("local[*]")
     sc   = SparkContext(conf=conf)
 
     #Execute Main function

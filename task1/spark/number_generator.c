@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main(){
-	unsigned long MAX_NUM = 10e7;
+	unsigned long MAX_NUM = 10e5;
 	FILE *fp=NULL; 
 	fp = fopen("input_numbers.txt", "w");
 	for (unsigned long i = 0; i < MAX_NUM; i++){
