@@ -37,6 +37,15 @@ def isprime(n):
 def tokenize(numbers_raw):
     return numbers_raw.split()
 
+## checks the number of workers
+def workername():
+
+    import socket
+    return str(socket.gethostname())
+    anrdd=sc.parallelize(['',''])
+    namesRDD = anrdd.flatMap(lambda e: (1,workername()))
+    namesRDD.count()
+
 ## Main function
 def main(sc):
 
@@ -45,10 +54,14 @@ def main(sc):
 
     print "input file imported and RDD created"
 
+    #print sc.getExecutorMemoryStatus
+
+
     # tokenize the input file into seperate numbers
     nums = numbers_raw.flatMap(tokenize)
 
     print "input file tokenized"
+    print "list of workers: %s" %workername
 
     # count number of prime numbers
     prime_num = nums.filter(isprime).count()
