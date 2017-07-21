@@ -1,0 +1,68 @@
+Presentation: 10-15 minutes
+
+Expected : 15 minutes
+
+<Setting up basic infrastructure for distributed data mining> -  3 minutes (1 person)
+
+Maybe some Intro and purpose of the course
+
+Created VMs and a cluster via SSH
+
+Installed Hadoop (with very brief explanation of the concept)
+
+Installed Spark (with very brief explanation of the concept)
+
+———————————————— 1 min
+
+Reviewed the pros and cons of each frameworks (brief) - mainly focus on number of iterations and use of cache 
+
+Tested simple test cases on both Hadoop and Spark using different languages, and compared the performance 
+
+Set up Hadoop and Spark UI to visualise the process
+Test 1 : Prime number (in Python, Java, Scala) on Spark
+Test 2 : Pi calculation (python) on Hadoop
+Test 3: Word Count (war and peace by Tolstoy - in python on both Spark and Hadoop
+Comparison (WC example) : Spark was slightly faster but mainly due to small size of the input file and we expect spark to over perform for bigger sized inputs.
+
+———————————————— 2 min
+
+<Towards Biomedical Text Mining> - 9 minutes (3 persons)
+
+Installed Elasticsearch
+
+Installed Pubmed Parser (explain briefly the concept of parser)
+
+Parsed the data with a Python script - explained with diagrams
+
+———————————————— 3 min
+
+Installed Nalaf
+
+Installed LocText
+
+Mounted NFS Server
+
+Ran LocText on parsed full-text papers - explained with diagrams 
+
+———————————————— 3 min
+
+Usage of Kibana (in the context of DDM)
+
+Usage of Sense (Beta) 
+
+Visualization + Final results
+
+———————————————— 3 min
+
+<Conclusion> -  2 minutes (1 person)
+
+Learning Outcomes	
+————————————————  1 min
+
+Team organisation / way of working
+
+———————————————— 1 min
+
+
+
+
