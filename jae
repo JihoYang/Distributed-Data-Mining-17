@@ -1,0 +1,36 @@
+```
+import pubmed_parser as pp
+import json
+import requests
+from elasticsearch import Elasticsearch
+from langdetect import detect
+
+res = requests.get('http://localhost:9200')
+es = Elasticsearch([{'host':'localhost', 'port':9200}])
+
+file = "/mnt/nfs/fulltext/AAPS_J/PMC4973466.nxml"
+TextJson = pp.parse_pubmed_paragraph(file, all_paragraph=False)
+fullTextJson = pp.parse_pubmed_xml(file)
+
+try: 
+	paperLanguage = detect(fullTextJson['abstract'])
+	fullTextJson['language'] = paperLanguage
+except Exception as e:
+	fullTextJson['language'] = ""
+
+print (fullTextJson['abstract']) # it seems 'abstract' of the article is printed. Should we use medline_parser to parse the 'abstract'??
+print (paperLanguage)            # this print 'en' because 'langdetect' is only for detecting the type of language of a text
+
+
+try:
+	fullTextJson['text'] = TextJson[1]
+except Exception as e:
+	fullTextJson['text'] = ""
+  
+  
+uniqueID = fullTextJson["pmid"] + "_" + fullTextJson["pmc"] # this makes unique id using 'pmid' and 'pmc'
+
+```
+
+On this page, there are two ways of parsing 'abstract' of the paper. 
+In my tuition, using the command, 'fullTextJson['abstract']', the 'abstract' can be parsed.
